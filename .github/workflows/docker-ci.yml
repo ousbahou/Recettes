@@ -1,0 +1,31 @@
+name: CI/CD Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and push PHP service
+        run: |
+          docker build -t mydockerhubuser/php_recettes ./recettes
+          docker push mydockerhubuser/php_recettes
+
+      - name: Build and push Express.js service
+        run: |
+          docker build -t mydockerhubuser/express_utilisateurs ./utilisateurs
+          docker push mydockerhubuser/express_utilisateurs
+
+      - name: Build and push Web service
+        run: |
+          docker build -t mydockerhubuser/web_interface ./web
+          docker push mydockerhubuser/web_interface

@@ -1,0 +1,9 @@
+{
+    "name": "ousba/php-service",
+    "type": "project",
+    "require": {
+        "php": "^8.0",
+        "vlucas/phpdotenv": "^5.4",
+        "mongodb/mongodb": "^1.10"
+    }
+}
